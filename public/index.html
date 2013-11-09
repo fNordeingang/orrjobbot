@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ORR Job Bot</title>
+    <meta charset="utf-8" />
+    <style type="text/css" media="screen">
+    li img { 
+      margin-right: 10px;
+      display: block;
+      float: left;
+      width: 48px;
+      height: 48px;
+    }
+    div.text {
+      float: left;
+      width: 500px;
+      padding: 0 20px 0 0;
+      font-size: 180%;
+    }
+    div.container {
+      clear: both;
+    }
+    p {
+      vertical-align: top;
+    }
+    ul {
+      list-style: none;
+    }
+    header {
+      width: 1820px;
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+    }
+    ul#tweets {
+      width: 1820px;
+      height: 900px;
+      margin: 0 auto;
+      padding: 0 0 0 75px;
+    }
+    ul li {
+      display: inline-block;
+      width: 580px;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+    </style>
+    <script src="/js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    $(function() {
+      var feed = [];
+      var maxTweets = 15;
+      var countTweets = 0;
+      var socket = io.connect('http://localhost:3000');
+      socket.on('tweet', function (data) {
+        data = data.data;
+        var tid = countTweets%maxTweets;
+        $('#tid_'+tid).remove();
+        var avatar = data.user.profile_image_url;
+        var $avatar = $('<img/>').attr('src', avatar);
+        var $container = $('<div class="container"/>');
+        var $text = $('<div class="text"/>').text(data.text);
+        $container.append($avatar);
+        $container.append($text);
+        var $tweet = $('<li/>').attr('id','tid_'+tid).append($container);
+        $('#tweets').prepend($tweet);
+        countTweets++;
+      });
+    });
+    </script>
+</head>
+<body>
+    <header>
+      <img src="/img/jobfeed.jpg"/>
+    </header>
+    <ul id="tweets"> </ul>
+    <footer>
+        
+    </footer>
+</body>
+</html>
