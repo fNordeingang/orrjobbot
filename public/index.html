@@ -55,6 +55,7 @@
       var socket = io.connect('http://localhost:3000');
       socket.on('tweet', function (data) {
         data = data.data;
+        console.log(data);
         var tid = countTweets%maxTweets;
         $('#tid_'+tid).remove();
         var avatar = data.user.profile_image_url;
