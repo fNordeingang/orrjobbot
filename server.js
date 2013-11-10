@@ -36,6 +36,6 @@ io.sockets.on('connection', function (socket) {
       console.log(data);
     });
   });
-  });
+});
 
-  server.listen(3000);
+server.listen(3000);

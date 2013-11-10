@@ -20,6 +20,9 @@
     div.container {
       clear: both;
     }
+    h6 {
+      margin: 0;
+    }
     p {
       vertical-align: top;
     }
@@ -41,7 +44,7 @@
     ul li {
       display: inline-block;
       width: 580px;
-      height: 150px;
+      height: 200px;
       margin-bottom: 20px;
     }
     </style>
@@ -61,7 +64,9 @@
         var avatar = data.user.profile_image_url;
         var $avatar = $('<img/>').attr('src', avatar);
         var $container = $('<div class="container"/>');
-        var $text = $('<div class="text"/>').text(data.text);
+        var $text = $('<div class="text"/>');
+        $text.append($('<h6/>').text('@'+data.user.screen_name));
+        $text.append(data.text);
         $container.append($avatar);
         $container.append($text);
         var $tweet = $('<li/>').attr('id','tid_'+tid).append($container);
